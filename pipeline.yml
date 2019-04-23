@@ -1,0 +1,22 @@
+resources:
+- name: voting-app-repo
+  type: git
+  source:
+    uri: https://github.com/salmaniqbal/azure-voting-app-redis.git
+    branch: master
+
+- name: voting-app-docker-image
+  type: docker-image
+  source:
+    username: ((docker-hub-username))
+    password: ((docker-hub-password))
+    repository: ((docker-hub-username))/voting-app
+
+jobs:
+- name: publish
+  public: true
+  plan:
+  - get: voting-app-repo
+  - put: voting-app-docker-image
+    params:
+      build: voting-app-repo/azure-vote
