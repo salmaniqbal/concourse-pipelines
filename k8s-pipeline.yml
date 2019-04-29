@@ -1,0 +1,53 @@
+##############################################################################
+# Resources
+##############################################################################
+resources:
+- name: voting-app-repo
+  type: git
+  source:
+    uri: https://github.com/salmaniqbal/azure-voting-app-redis.git
+    branch: master
+
+##############################################################################
+# Jobs
+##############################################################################
+jobs:
+- name: deploy-k8s
+  public: true
+  plan:
+  - get: voting-app-repo
+    trigger: true
+  - task: azlogin-deploy
+    config:
+        platform: linux
+        image_resource:
+          type: docker-image
+          source:
+            repository: microsoft/azure-cli
+            tag: 2.0.53
+        params: 
+          AZURE_CLIENT_ID: ((azure_client_id))
+          AZURE_CLIENT_SECRET: ((azure_client_secret))
+          AZURE_TENANT_ID: ((azure_tenant_id))
+        inputs:
+          - name: voting-app-repo
+        run:
+          path: bash
+          args:
+            - -exc
+            - |
+              az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
+              
+              az aks get-credentials --resource-group TakeOnResourceGroup --name TakeOnAKSCluster
+              
+              curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+
+              chmod +x ./kubectl
+
+              mv ./kubectl /usr/local/bin/kubectl
+
+              git clone https://github.com/salmaniqbal/azure-voting-app-redis.git
+
+              cd azure-voting-app-redis
+              
+              kubectl apply -f azure-vote-all-in-one-redis.yaml
