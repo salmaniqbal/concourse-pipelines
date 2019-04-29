@@ -1,0 +1,8 @@
+docker-hub-username: 'insert_dockerhub_username'
+docker-hub-password: 'insert_dockerhub_password'
+
+# To get the credentials for your azure account checkout:
+# https://www.terraform.io/docs/providers/azurerm/auth/service_principal_client_secret.html 
+azure_client_id: 'insert_clientid'
+azure_client_secret: 'insert_clientsecret'
+azure_tenant_id: 'insert_tenantid'
