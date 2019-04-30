@@ -29,7 +29,7 @@ jobs:
     trigger: true
     passed:
       - build-docker
-  - task: azlogin-deploy
+  - task: az-deploy
     config:
         platform: linux
         image_resource:

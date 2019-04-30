@@ -53,3 +53,8 @@ If you want to destroy a pipeline:
 In order to create the pipeline, the secrets are taken from `params.yml` file. Fill the details here and run the following command to create the pipeline:  
 `fly -t tutorial sp -p vote-cicd -c voteapp-cicd.yml --load-vars-from params.yml`  
 `fly -t tutorial up -p vote-cicd`
+
+---
+### AWS Lambda Serverless Framework Pipeline
+
+`serverless.yml` creates a pipeline that deploys an AWS lambda checked into [AWS Lambda python repo](https://github.com/salmaniqbal/python-serverless.git). The repo is initiated using [Serverless Framework](https://serverless.com/). Pipeline also uses Serverless Framework to deploy AWS Lambda.
