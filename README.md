@@ -58,3 +58,7 @@ In order to create the pipeline, the secrets are taken from `params.yml` file. F
 ### AWS Lambda Serverless Framework Pipeline
 
 `serverless.yml` creates a pipeline that deploys an AWS lambda checked into [AWS Lambda python repo](https://github.com/salmaniqbal/python-serverless.git). The repo is initiated using [Serverless Framework](https://serverless.com/). Pipeline also uses Serverless Framework to deploy AWS Lambda.
+
+Create pipeline using the following command:
+`fly -t tutorial sp -p serverless-ci -c serverless.yml --load-vars-from params.yml`
+`fly -t tutorial up -p serverless-ci`
