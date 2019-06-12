@@ -36,6 +36,8 @@ Open your terminal, connect to concourse:
 In the current repository, run the following command:  
 `fly -t tutorial sp -p voting-app -c pipeline.yml -v docker-hub-username=yourusername -v docker-hub-password=yourpassword`
 
+`fly -t tutorial sp -p voting-app -c pipeline.yml --load-vars-from local-params.yml`
+
 Unpause the pipeline:
 `fly -t tutorial unpause-pipeline -p voting-app`
 
@@ -51,7 +53,7 @@ If you want to destroy a pipeline:
 `voteapp-cicd.yml` creates a pipeline that builds the docker image from [Voting App repo](https://github.com/salmaniqbal/azure-voting-app-redis), pushes it to docker hub and then deploy to the Azure Kubernetes Cluster.
 
 In order to create the pipeline, the secrets are taken from `params.yml` file. Fill the details here and run the following command to create the pipeline:  
-`fly -t tutorial sp -p vote-cicd -c voteapp-cicd.yml --load-vars-from params.yml`  
+`fly -t tutorial sp -p vote-cicd -c voteapp-cicd.yml --load-vars-from local-params.yml`  
 `fly -t tutorial up -p vote-cicd`
 
 ---
